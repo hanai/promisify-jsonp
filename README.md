@@ -1,0 +1,2 @@
+# promisify-jsonp
+Promisify JSONP

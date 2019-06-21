@@ -4,10 +4,10 @@ const {
 const commonjs = require('rollup-plugin-commonjs');
 const nodeResolve = require('rollup-plugin-node-resolve');
 
-module.exports = {
+module.exports = [{
     input: 'lib/pjsonp.js',
     output: {
-        file: 'dist/pjsonp.js',
+        file: 'dist/pjsonp.min.js',
         format: 'umd',
         name: 'promisify-jsonp'
     },
@@ -18,4 +18,17 @@ module.exports = {
         commonjs(),
         uglify()
     ]
-};
+}, {
+    input: 'lib/pjsonp.js',
+    output: {
+        file: 'dist/pjsonp.js',
+        format: 'umd',
+        name: 'promisify-jsonp'
+    },
+    plugins: [
+        nodeResolve({
+            browser: true
+        }),
+        commonjs()
+    ]
+}];

@@ -22,9 +22,6 @@
     "url": "https://github.com/hanai/promisify-jsonp/issues"
   },
   "homepage": "https://github.com/hanai/promisify-jsonp#readme",
-  "dependencies": {
-    "qs": "^6.7.0"
-  },
   "devDependencies": {
     "rollup": "^1.15.6",
     "rollup-plugin-commonjs": "^10.0.0",

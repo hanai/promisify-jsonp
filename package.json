@@ -4,8 +4,8 @@
   "description": "Promisify JSONP",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
-    "build": "rollup -c --environment NODE_ENV:production"
+    "test": "jasmine",
+    "build": "NODE_ENV=production webpack"
   },
   "repository": {
     "type": "git",
@@ -16,6 +16,7 @@
     "http",
     "request"
   ],
+  "typings": "./index.d.ts",
   "author": "Hanai",
   "license": "MIT",
   "bugs": {
@@ -23,16 +24,19 @@
   },
   "homepage": "https://github.com/hanai/promisify-jsonp#readme",
   "devDependencies": {
+    "jasmine": "^3.5.0",
     "karma": "^4.4.1",
     "karma-chrome-launcher": "^3.1.0",
     "karma-firefox-launcher": "^1.2.0",
     "karma-jasmine": "^2.0.1",
     "karma-opera-launcher": "^1.0.0",
     "karma-safari-launcher": "^1.0.0",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-webpack": "^4.0.2",
     "mocha": "^6.2.2",
-    "rollup": "^1.15.6",
-    "rollup-plugin-commonjs": "^10.0.0",
-    "rollup-plugin-node-resolve": "^5.0.3",
-    "rollup-plugin-uglify": "^6.0.2"
+    "query-string": "^6.8.3",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.9.0"
   }
 }

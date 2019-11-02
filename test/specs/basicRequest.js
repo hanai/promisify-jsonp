@@ -1,1 +1,0 @@
-pjsonp = require('../../index');

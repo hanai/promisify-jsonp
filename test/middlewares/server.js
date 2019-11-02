@@ -1,24 +1,56 @@
 const qs = require('query-string');
+const url = require('url');
 
-function serverFactory(config) {
-    return function (req, res, next) {
-        const { url } = req;
+const parseReq = (req) => {
+    const { pathname, query: querystring } = url.parse(req.url);
+    const query = qs.parse(querystring);
 
-        if (url.indexOf('/jsonp/') !== 0) {
+    return {
+        pathname,
+        query,
+        querystring
+    };
+}
+
+const routes = {
+    '/jsonp/basic': (req, res, next) => {
+        const { query, pathname } = parseReq(req);
+        if (query.callback == null) {
             res.statusCode = 404;
         } else {
-            const idx = url.indexOf('?');
-            const querystring = idx > -1 ? url.slice(idx + 1) : '';
-            const query = qs.parse(querystring);
-
-            if (query.callback != null) {
-                res.statusCode = 200;
-                res.end(`${query.callback}({success:true})`);
-            } else {
-                res.statusCode = 404;
-            }
+            res.statusCode = 200;
+            res.end(`${query.callback} != null && ${query.callback}({success:true})`);
         }
         next();
+    },
+    '/jsonp/hold10': async (req, res, next) => {
+        const { query, pathname } = parseReq(req);
+        if (query.callback == null) {
+            res.statusCode = 404;
+            next();
+        } else {
+            await new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve();
+                }, 10000);
+            });
+            res.statusCode = 200;
+            res.end(`${query.callback} != null && ${query.callback}({success:true})`);
+            next();
+        }
+    }
+}
+
+function serverFactory(config) {
+    return async function (req, res, next) {
+        const { pathname, query } = parseReq(req);
+
+        if (typeof routes[pathname] !== 'undefined') {
+            return await routes[pathname](req, res, next);
+        } else {
+            res.statusCode = 404;
+            next();
+        }
     };
 }
 

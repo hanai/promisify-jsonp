@@ -149,6 +149,22 @@ function isNonEmptyString(obj) {
     return isString(obj) && obj.length > 0;
 }
 
+function createParameterError(key) {
+    return new Error('Invalid parameter ' + key);
+}
+
+function getQueryString(params, encode, arr) {
+    var key;
+    params = params || {};
+    arr = arr || [];
+    for (key in params) {
+        if (has.call(params, key)) {
+            arr.push((encode ? enc(key) : key) + '=' + (encode ? enc(params[key]) : params[key]));
+        }
+    }
+    return arr.join('&');
+}
+
 function pjsonp(url, opts) {
     if (!opts) opts = {};
 
@@ -159,21 +175,15 @@ function pjsonp(url, opts) {
     var params = opts.params || {};
     var encode = isBoolean(opts.encode) ? opts.encode : true;
 
-    var key;
     var onWindowError;
     var script = document.createElement('script');
     var timer;
 
     if (opts.crossOrigin != null) {
-        if (
-            isString(opts.crossOrigin) &&
-            crossOriginValues.indexOf(opts.crossOrigin) > -1
-        ) {
+        if (crossOriginValues.indexOf(opts.crossOrigin) > -1) {
             script.crossOrigin = opts.crossOrigin;
         } else {
-            return Promise.reject(
-                new Error('Invalid crossOrigin value: ' + opts.crossOrigin)
-            );
+            return Promise.reject(createParameterError('crossOrigin'));
         }
     }
 
@@ -184,15 +194,7 @@ function pjsonp(url, opts) {
         if (onWindowError) window.removeEventListener('error', onWindowError);
     }
 
-    var queryArray = [];
-    queryArray.push(callbackParamName + '=' + callbackName);
-    for (key in params) {
-        if (has.call(params, key)) {
-            queryArray.push((encode ? enc(key) : key) + '=' + (encode ? enc(params[key]) : params[key]));
-        }
-    }
-
-    url += (~url.indexOf('?') ? '&' : '?') + queryArray.join('&');
+    url += (~url.indexOf('?') ? '&' : '?') + getQueryString(params, encode, [callbackParamName + '=' + callbackName]);
     url = url.replace('?&', '?');
 
     script.src = url;

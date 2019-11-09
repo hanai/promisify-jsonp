@@ -4,7 +4,7 @@
   "description": "Promisify JSONP",
   "main": "index.js",
   "scripts": {
-    "test": "jasmine",
+    "test": "karma start karma.conf.js",
     "build": "NODE_ENV=production webpack"
   },
   "repository": {
@@ -34,7 +34,7 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^4.0.2",
     "mocha": "^6.2.2",
-    "query-string": "^6.8.3",
+    "qs": "^6.9.1",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.9.0"

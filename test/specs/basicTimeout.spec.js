@@ -3,11 +3,11 @@ const pjsonp = require('../../index');
 describe('basic timeout', function () {
     var defaultTimeoutInterval = jasmine.DEFAULT_TIMEOUT_INTERVAL;
 
-    beforeEach(function () {
+    beforeAll(function () {
         jasmine.DEFAULT_TIMEOUT_INTERVAL = 30000;
     });
 
-    afterEach(function () {
+    afterAll(function () {
         jasmine.DEFAULT_TIMEOUT_INTERVAL = defaultTimeoutInterval;
     });
 

@@ -4,6 +4,7 @@
   "description": "Promisify JSONP",
   "main": "index.js",
   "scripts": {
+    "server": "node test/server.js",
     "test": "karma start karma.conf.js",
     "build": "NODE_ENV=production webpack"
   },
@@ -24,6 +25,8 @@
   },
   "homepage": "https://github.com/hanai/promisify-jsonp#readme",
   "devDependencies": {
+    "cookie-parser": "^1.4.4",
+    "express": "^4.17.1",
     "jasmine": "^3.5.0",
     "karma": "^4.4.1",
     "karma-chrome-launcher": "^3.1.0",
@@ -34,7 +37,6 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^4.0.2",
     "mocha": "^6.2.2",
-    "qs": "^6.9.1",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.9.0"

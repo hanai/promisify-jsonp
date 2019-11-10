@@ -6,6 +6,10 @@ describe('basic CORS', function () {
         return pjsonp(getUrl('/jsonp/add_cookie'));
     });
 
+    afterAll(() => {
+        return pjsonp(getUrl('/jsonp/remove_cookie'));
+    });
+
     it('should has cookie', async function () {
         const res = await pjsonp(getUrl('/jsonp/cors'), { params: { crossOrigin: 'null' } });
         const { success, cookies } = res;

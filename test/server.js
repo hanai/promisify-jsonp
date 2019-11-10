@@ -39,6 +39,15 @@ app.get('/jsonp/add_cookie', (req, res, next) => {
     next();
 });
 
+app.get('/jsonp/remove_cookie', (req, res, next) => {
+    const { query } = req;
+    res.cookie('secret', '', {
+        maxAge: 0,
+    });
+    res.send(`typeof ${query.callback} != 'undefined' && ${query.callback}({success:true})`).end();
+    next();
+});
+
 app.get('/jsonp/cors', (req, res, next) => {
     const { cookies, query } = req;
     if (query.callback == null) {

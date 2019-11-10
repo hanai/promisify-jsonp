@@ -116,7 +116,7 @@ function now() {
 function genCallbackName(prefix, acc) {
     acc = acc || 0;
     var cbName = prefix + now() + '_' + acc;
-    if (typeof window[cbName] === 'undefined') {
+    if (!(cbName in window)) {
         window[cbName] = null;
         return cbName;
     } else {
@@ -141,6 +141,7 @@ function isType(match) {
 
 var isString = isType('String');
 var isBoolean = isType('Boolean');
+var isNumber = isType('Number');
 
 var enc = window.encodeURIComponent;
 var has = Object.prototype.hasOwnProperty;
@@ -177,7 +178,7 @@ function pjsonp(url, opts) {
 
     var onWindowError;
     var script = document.createElement('script');
-    var timer;
+    var timer = null;
 
     if (opts.crossOrigin != null) {
         if (crossOriginValues.indexOf(opts.crossOrigin) > -1) {
@@ -190,7 +191,7 @@ function pjsonp(url, opts) {
     function cleanup() {
         if (timer) clearTimeout(timer);
         if (script.parentNode) script.parentNode.removeChild(script);
-        window[callbackName] = undefined;
+        delete window[callbackName];
         if (onWindowError) window.removeEventListener('error', onWindowError);
     }
 
@@ -200,7 +201,7 @@ function pjsonp(url, opts) {
     script.src = url;
 
     return new Promise(function (resolve, reject) {
-        if (timeout) {
+        if (isNumber(timeout) && timeout > 0) {
             timer = setTimeout(function () {
                 cleanup();
                 reject(new Error('Timeout'));

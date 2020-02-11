@@ -26,16 +26,11 @@ pjsonp('https://www.example.com/jsonp')
   });
 ```
 
-## Todo
-
-1. Add tsd
-2. Add test
-
 ## License
 
 [MIT](./LICENSE)
 
 [npm-image]: https://img.shields.io/npm/v/promisify-jsonp.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/promisify-jsonp
-[license-image]: https://img.shields.io/npm/l/promisify-jsonp.svg?style=flat-square
+[license-image]: https://img.shields.io/badge/license-MIT-blue.svg
 [license-url]: ./LICENSE

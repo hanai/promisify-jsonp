@@ -1,6 +1,6 @@
 {
   "name": "promisify-jsonp",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Promisify JSONP",
   "main": "index.js",
   "scripts": {

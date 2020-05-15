@@ -1,6 +1,6 @@
 export type CrossOrigin = 'anonymous' | 'use-credentials' | '';
 
-interface PJSONPOptions {
+export interface PJSONPOptions {
     timeout?: number;
     params?: Record<string, any>;
     callbackNamePrefix?: string;

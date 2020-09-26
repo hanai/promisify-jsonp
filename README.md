@@ -5,24 +5,40 @@
 
 Light and robust JSONP library.
 
-
 ## Installation
 
-``` sh
+```sh
 $ npm install --save promisify-jsonp
 ```
 
 ## Usage
 
-``` js
-var pjsonp = require('pjsonp');
+```js
+pjsonp(url, options);
+```
 
-pjsonp('https://www.example.com/jsonp')
-  .then(res => {
-      console.log(res);
+### Options
+
+| name               | type    | required | default value | description                                      |
+| ------------------ | ------- | -------- | ------------- | ------------------------------------------------ |
+| callbackName       | String  | false    | -             | name of jsonp callback function                  |
+| callbackNamePrefix | String  | false    | \_\_jp        | prefix for `callbackName`                        |
+| callbackParamName  | String  | false    | callback      | parameter name of `callbackName` in query string |
+| timeout            | Number  | false    | 0             | request timeout(0 means no timeout)              |
+| params             | Object  | false    | {}            | extend parameter to query string                 |
+| encode             | Boolean | false    | true          | encode parameter in query string                 |
+
+## Example
+
+```js
+var pjsonp = require("pjsonp");
+
+pjsonp("https://www.example.com/jsonp")
+  .then((res) => {
+    console.log(res);
   })
-  .catch(err => {
-      console.log(err);
+  .catch((err) => {
+    console.log(err);
   });
 ```
 
